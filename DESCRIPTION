@@ -1,10 +1,11 @@
 Package: hrmtargets
-Title: What the Package Does (One Line, Title Case)
+Title: Targets for high resolution metabolomics workflows
 Version: 0.0.0.9000
 Authors@R: 
     person("Jasen", "Finch", , "jsf9@aber.ac.uk", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-6070-7476"))
-Description: What the package does (one paragraph).
+Description: A pipeline toolkit for workflows using the 'targets' R package for 
+            analysing high resolution mass spectrometry based metabolomics experiments.
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
 Encoding: UTF-8
