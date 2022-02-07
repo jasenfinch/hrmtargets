@@ -4,14 +4,14 @@
 \alias{tar_input_file_path}
 \title{Workflow input using file paths}
 \usage{
-tar_input_file_path(name, mzML_files, sample_information)
+tar_input_file_path(name, mzML_files, sample_info)
 }
 \arguments{
 \item{name}{Symbol. The name for the collection of targets. This serves as a prefix for target names.}
 
 \item{mzML_files}{A characer vector of mzML file paths.}
 
-\item{sample_information}{A tibble containing the sample information. See details for the specifications.}
+\item{sample_info}{A tibble containing the sample information. See details for the specifications.}
 }
 \value{
 A list of target objects specifically for analysis pipeline input using file paths.

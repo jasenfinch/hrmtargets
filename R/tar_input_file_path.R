@@ -2,7 +2,7 @@
 #' @description Targets for workflow inputs using file paths
 #' @param name Symbol. The name for the collection of targets. This serves as a prefix for target names.
 #' @param mzML_files A characer vector of mzML file paths.
-#' @param sample_information A tibble containing the sample information. See details for the specifications.
+#' @param sample_info A tibble containing the sample information. See details for the specifications.
 #' @details 
 #' The tibble containing sample information should at least contain the following columns:
 #' * `fileOrder` - the numeric file order of the input files when order alphabetically as returned by list.files().
@@ -40,7 +40,7 @@
 
 tar_input_file_path <- function(name,
                                 mzML_files,
-                                sample_information){
+                                sample_info){
     
     mzml_pattern <- grepl('.mzML',mzML_files)
     
@@ -51,7 +51,7 @@ tar_input_file_path <- function(name,
     
     necessary_names <- c('fileOrder','injOrder','fileName','batch','block','name','class')
     
-    info_names <- colnames(sample_information)
+    info_names <- colnames(sample_info)
     
     presence <- necessary_names %in% info_names
     
@@ -62,7 +62,7 @@ tar_input_file_path <- function(name,
              call. = FALSE)
     } 
     
-    if (!all(basename(mzML_files) == sample_information$fileName)){
+    if (!all(basename(mzML_files) == sample_info$fileName)){
         stop('mzML file names do not match those specified in the `fileName` column of the `sample_information`.',
              call. = FALSE)
     }
@@ -82,7 +82,7 @@ tar_input_file_path <- function(name,
     
     sample_information_target <- tar_target_raw(
         sample_information_name,
-        call2(as_tibble,sample_information)
+        call2(as_tibble,sample_info)
     )
     
     list(mzML_target,
