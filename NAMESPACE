@@ -2,6 +2,9 @@
 
 export(tar_input_file_path)
 export(tar_input_grover)
+export(tar_input_piggyback)
+importFrom(gert,git_find)
+importFrom(gert,git_remote_list)
 importFrom(magrittr,"%>%")
 importFrom(rlang,call2)
 importFrom(rlang,enexpr)
