@@ -52,8 +52,8 @@ tar_grover_input <- function(name,
         expr(grover::listRawFiles(!!grover_client,
                                 !!instrument,
                                 !!experiment) %>% 
-                       .[!grepl("Ctrl",.)] %>%
-                       .[!grepl("Play",.)] %>% 
+                       subset(!grepl('Ctrl',.)) %>%
+                       subset(!grepl('Play',.)) %>%  
                        sort()),
         envir = envir,
         tidy_eval = tidy_eval
@@ -79,6 +79,8 @@ tar_grover_input <- function(name,
         tidy_eval = tidy_eval
     )
     
+    pattern_raw_files <- expr(map(!!sym(raw_files_name)))
+    
     command_sample_information <- tar_tidy_eval(
         expr(metaboMisc::convertSampleInfo(!!sym(raw_sample_information_name))),
         envir = envir,
@@ -90,14 +92,17 @@ tar_grover_input <- function(name,
         command_raw_files
     )
     
-    mzML_target <- tar_files_raw(
+    mzML_target <- tar_target_raw(
         mzML_name,
-        command_mzML
+        command_mzML,
+        pattern = pattern_raw_files,
+        format = 'file'
     )
     
     raw_sample_information_target <- tar_target_raw(
         raw_sample_information_name,
-        command_raw_sample_information
+        command_raw_sample_information,
+        pattern = pattern_raw_files
     )
     
     sample_information_target <- tar_target_raw(
