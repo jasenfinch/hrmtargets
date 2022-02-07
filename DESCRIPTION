@@ -7,8 +7,13 @@ Authors@R:
 Description: A pipeline toolkit for workflows using the 'targets' R package for 
             analysing high resolution mass spectrometry based metabolomics experiments.
 License: GPL (>= 3)
-Imports: tarchetypes,
-        targets
+Imports: grover,
+        magrittr,
+        metaboMisc,
+        rlang,
+        tarchetypes,
+        targets,
+        tibble
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
