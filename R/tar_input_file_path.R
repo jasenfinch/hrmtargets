@@ -25,7 +25,7 @@
 #'     sample_info <- metaboData::runinfo('FIE-HRMS','UrineTechnical',ask = FALSE)
 #'     
 #'     list(
-#'         tar_file_path_input(test,
+#'         tar_input_file_path(test,
 #'                             file_paths,
 #'                             sample_info)
 #'     )
@@ -38,7 +38,7 @@
 #' @importFrom tibble as_tibble
 #' @export
 
-tar_file_path_input <- function(name,
+tar_input_file_path <- function(name,
                                 mzML_files,
                                 sample_information){
     
