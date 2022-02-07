@@ -3,6 +3,7 @@
 export(tar_input_file_path)
 export(tar_input_grover)
 export(tar_input_piggyback)
+export(tar_spectral_binning)
 importFrom(gert,git_find)
 importFrom(gert,git_remote_list)
 importFrom(magrittr,"%>%")
