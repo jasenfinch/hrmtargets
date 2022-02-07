@@ -32,8 +32,10 @@
 #' })
 #' targets::tar_make()
 #' })
-#' @importFrom targets tar_deparse_language tar_target_raw tar_option_get
+#' @importFrom rlang enexpr call2
+#' @importFrom targets tar_deparse_language tar_target_raw tar_option_get tar_tidy_eval
 #' @importFrom tarchetypes tar_files_raw
+#' @importFrom tibble as_tibble
 #' @export
 
 tar_file_path_input <- function(name,
@@ -68,25 +70,19 @@ tar_file_path_input <- function(name,
     envir <- tar_option_get("envir")
     tidy_eval <- tar_option_get("tidy_eval")
     
-    name <- tar_deparse_language(substitute(name))
+    name <- tar_deparse_language(enexpr(name))
     
     mzML_name <- paste0(name,'_mzML')
     sample_information_name <- paste0(name,'_sample_information')
     
-    command_sample_information <- targets::tar_tidy_eval(
-        substitute(sample_information),
-        envir = envir,
-        tidy_eval = tidy_eval
-    )
-    
     mzML_target <- tar_files_raw(
         mzML_name,
-        as.call(list(`c`,mzML_files))
+        call2(c,mzML_files)
     )
     
     sample_information_target <- tar_target_raw(
         sample_information_name,
-        command_sample_information
+        call2(as_tibble,sample_information)
     )
     
     list(mzML_target,
