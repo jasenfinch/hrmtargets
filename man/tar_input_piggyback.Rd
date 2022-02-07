@@ -50,7 +50,7 @@ Defaults to \code{TRUE}.}
 \item{.token}{GitHub authentication token, see \verb{[gh::gh_token()]}}
 }
 \value{
-A list of target objects specifically for analysis pipeline input data retrieval using \code{piggyback}..
+A list of target objects specifically for analysis pipeline input data retrieval using \code{piggyback}.
 }
 \description{
 Targets for workflow input for mzML data files and sample information stored in a GitHub release using the \code{piggyback} R package.

@@ -6,7 +6,7 @@
 #' @param sample_info_file The name of the file included in the release that contains the sample information.
 #' @param ext The file extension of the converted (mzML) data files.
 #' @return 
-#' A list of target objects specifically for analysis pipeline input data retrieval using `piggyback`..
+#' A list of target objects specifically for analysis pipeline input data retrieval using `piggyback`.
 #' @examples
 #' \dontrun{
 #' ## Example piggyback input
