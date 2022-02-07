@@ -1,5 +1,5 @@
-test_that("tar_grover_input() works", {
-    targets <- tar_grover_input(test,
+test_that("tar_input_grover() works", {
+    targets <- tar_input_grover(test,
                                 'an_instrument',
                                 'an_experiment',
                                 grover::grover('a_host',80,'1234'))
@@ -8,8 +8,8 @@ test_that("tar_grover_input() works", {
 })
 
 
-test_that('tar_grover_input() throws an error if argument grover_client is not of class `GroverClient`',{
-    expect_error(tar_grover_input(test,
+test_that('tar_input_grover() throws an error if argument grover_client is not of class `GroverClient`',{
+    expect_error(tar_input_grover(test,
                                   'an_instrument',
                                   'an_experiment',
                                   'incorrect'))

@@ -14,7 +14,7 @@
 #' targets::tar_script({
 #'     library(hrmtargets)
 #'     list(
-#'         tar_grover_input(example,
+#'         tar_input_grover(example,
 #'                          'an_instrument',
 #'                          'an_experiment',
 #'                          grover::grover('a_host',80,'1234'))
@@ -26,7 +26,7 @@
 #' @importFrom magrittr %>%
 #' @export
 
-tar_grover_input <- function(name,
+tar_input_grover <- function(name,
                              instrument,
                              experiment,
                              grover_client,
