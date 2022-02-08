@@ -37,7 +37,8 @@
 #'     targets::tar_read(example_plot_PCA)
 #' })
 #' 
-#' ## Perform pre-treatment by combining the use of `tar_input_piggyback()` and `tar_spectral_binning()` 
+#' ## Perform pre-treatment by combining the use of 
+#' ## `tar_input_piggyback()` and `tar_spectral_binning()` 
 #' targets::tar_dir({
 #'     targets::tar_script({
 #'         library(hrmtargets)

@@ -23,7 +23,7 @@ tar_pre_treatment(
 
 \item{parameters}{S4 object of class \code{AnalysisParameters} containing pre-treatment parameters. If \code{NULL}, \code{metaboMisc::detectPretreatmentParameters()} will be used to detect the pre-treatment parameters based on the \code{cls} argument.}
 
-\item{cls}{The name of the sample information table column containing the sample class information for parameter detection. Ignored if argument \code{parameters} is not \code{NULL}.}
+\item{cls}{The name of the sample information table column containing the sample class information for parameter detection and plotting. Ignored for parameters if argument \code{parameters} is not \code{NULL}.}
 
 \item{QCidx}{QC sample class label. Ignored if argument \code{parameters} is not \code{NULL}.}
 
@@ -68,7 +68,8 @@ targets::tar_dir({
     targets::tar_read(example_plot_PCA)
 })
 
-## Perform pre-treatment by combining the use of `tar_input_piggyback()` and `tar_spectral_binning()` 
+## Perform pre-treatment by combining the use of 
+## `tar_input_piggyback()` and `tar_spectral_binning()` 
 targets::tar_dir({
     targets::tar_script({
         library(hrmtargets)
