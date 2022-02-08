@@ -44,6 +44,7 @@ tar_input_piggyback <- function(name,
     tidy_eval <- tar_option_get("tidy_eval")
     
     name <- tar_deparse_language(enexpr(name))
+    tag <- tar_deparse_language(enexpr(tag))
     
     release_name <- paste0(name,'_release')
     mzML_name <- paste0(name,'_mzML')
