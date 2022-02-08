@@ -6,6 +6,7 @@ Authors@R:
            comment = c(ORCID = "0000-0002-6070-7476"))
 Description: A pipeline toolkit for workflows using the 'targets' R package for 
             analysing high resolution mass spectrometry based metabolomics experiments.
+URL: https://jasenfinch.github.io/hrmtargets/
 License: GPL (>= 3)
 Imports: binneR,
         gert,
@@ -27,5 +28,8 @@ Suggests:
     covr,
     metaboData,
     testthat (>= 3.0.0)
+Remotes: aberHRML/binneR,
+        jasenfinch/grover,
+        jasenfinch/metabolyseR,
+        jasenfinch/metaboMisc
 Config/testthat/edition: 3
-URL: https://jasenfinch.github.io/hrmtargets/
