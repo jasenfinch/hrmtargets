@@ -57,7 +57,7 @@
 #'     targets::tar_read(example_plot_PCA)
 #' })
 #' }
-# @export
+#' @export
 
 tar_pre_treatment <- function(name,
                               spectral_processed = NULL,
