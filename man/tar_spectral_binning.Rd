@@ -25,6 +25,8 @@ tar_spectral_binning(
 
 \item{parameters}{S4 object of class \code{BinParameters}. If \code{NULL}, \code{binneR::detectParameters()} will be used to detect the spectral binning parameters automatically..}
 
+\item{verbose}{Show spectral processing console output.}
+
 \item{plots}{Boolean. Include additional plotting targets.}
 
 \item{summary}{Boolean. Include additional summary targets.}
@@ -34,20 +36,20 @@ tar_spectral_binning(
 \item{export_path}{Destination path of export files. Ignored if argument \code{exports = FALSE}.}
 }
 \value{
-A list of target objects for processing \code{mzML} data files using spectral binning..
+A list of target objects for processing \code{mzML} data files using spectral binning.
 }
 \description{
 Targets for spectral processing of FIE-HRMS data using spectral binning.
 }
 \details{
-Specifying arguments \code{mzML} and \code{sample_info} as \code{NULL} enables the use of one of the data file and sample information from on of the  input target factories, \code{tar_input_file_path()}, \code{tar_input_grover()} or \code{tar_input_piggyback()}. See the example using \code{tar_input_piggyback()} below.
+Specifying arguments \code{mzML} and \code{sample_info} as \code{NULL} enables the use of one of the data file and sample information from one of the input target factories, \code{tar_input_file_path()}, \code{tar_input_grover()} or \code{tar_input_piggyback()}. See the example using \code{tar_input_piggyback()} below.
 }
 \examples{
 \dontrun{
-## Perform spectral binning by specifiying the file paths and sample information directly
+## Perform spectral binning by specifying the file paths and sample information directly
 targets::tar_dir({
     targets::tar_script({
-        devtools::load_all('~/Documents/tools/R-Package-dev/hrmtargets/')
+        library(hrmtargets)
         file_paths <- metaboData::filePaths('FIE-HRMS','UrineTechnical',
                                             ask = FALSE)
         sample_info <- metaboData::runinfo('FIE-HRMS','UrineTechnical',
@@ -71,7 +73,7 @@ targets::tar_dir({
         name <- rlang::sym('example')
         
         list(
-            tar_input_piggyback(example,
+            tar_input_piggyback(!!name,
                                 'FIE-HRMS_BdistachyonTechnical',
                                 repo = 'jasenfinch/metaboData'),
             tar_spectral_binning(!!name)

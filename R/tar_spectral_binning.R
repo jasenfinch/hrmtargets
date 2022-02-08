@@ -4,17 +4,18 @@
 #' @param mzML A characer vector of mzML data file paths. If `NULL`, target input will be expected from an existing target. See details.
 #' @param sample_info A tibble containing the sample information. See details for the specifications. If `NULL`, target input will be expected from an existing target. See details.
 #' @param parameters S4 object of class `BinParameters`. If `NULL`, `binneR::detectParameters()` will be used to detect the spectral binning parameters automatically..
+#' @param verbose Show spectral processing console output.
 #' @param plots Boolean. Include additional plotting targets.
 #' @param summary Boolean. Include additional summary targets.
 #' @param exports Boolean. Include additional export targets.
 #' @param export_path Destination path of export files. Ignored if argument `exports = FALSE`.
 #' @details 
-#' Specifying arguments `mzML` and `sample_info` as `NULL` enables the use of one of the data file and sample information from on of the  input target factories, `tar_input_file_path()`, `tar_input_grover()` or `tar_input_piggyback()`. See the example using `tar_input_piggyback()` below.
+#' Specifying arguments `mzML` and `sample_info` as `NULL` enables the use of one of the data file and sample information from one of the input target factories, `tar_input_file_path()`, `tar_input_grover()` or `tar_input_piggyback()`. See the example using `tar_input_piggyback()` below.
 #' @return 
-#' A list of target objects for processing `mzML` data files using spectral binning..
+#' A list of target objects for processing `mzML` data files using spectral binning.
 #' @examples 
 #' \dontrun{
-#' ## Perform spectral binning by specifiying the file paths and sample information directly
+#' ## Perform spectral binning by specifying the file paths and sample information directly
 #' targets::tar_dir({
 #'     targets::tar_script({
 #'         library(hrmtargets)
@@ -41,7 +42,7 @@
 #'         name <- rlang::sym('example')
 #'         
 #'         list(
-#'             tar_input_piggyback(example,
+#'             tar_input_piggyback(!!name,
 #'                                 'FIE-HRMS_BdistachyonTechnical',
 #'                                 repo = 'jasenfinch/metaboData'),
 #'             tar_spectral_binning(!!name)
