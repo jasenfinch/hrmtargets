@@ -38,10 +38,6 @@
 #' targets::tar_dir({
 #'     targets::tar_script({
 #'         library(hrmtargets)
-#'         file_paths <- metaboData::filePaths('FIE-HRMS','UrineTechnical',
-#'                                             ask = FALSE)
-#'         sample_info <- metaboData::runinfo('FIE-HRMS','UrineTechnical',
-#'                                            ask = FALSE)
 #'         name <- rlang::sym('example')
 #'         
 #'         list(

@@ -12,7 +12,8 @@ tar_spectral_binning(
   verbose = TRUE,
   plots = TRUE,
   summary = TRUE,
-  exports = TRUE
+  exports = TRUE,
+  export_path = "exports/spectral_processing"
 )
 }
 \arguments{
@@ -24,11 +25,13 @@ tar_spectral_binning(
 
 \item{parameters}{S4 object of class \code{BinParameters}. If \code{NULL}, \code{binneR::detectParameters()} will be used to detect the spectral binning parameters automatically..}
 
-\item{plots}{Boolean. Include plotting targets.}
+\item{plots}{Boolean. Include additional plotting targets.}
 
-\item{summary}{Boolean. Include a summary target.}
+\item{summary}{Boolean. Include additional summary targets.}
 
-\item{exports}{Boolean. Include export targets.}
+\item{exports}{Boolean. Include additional export targets.}
+
+\item{export_path}{Destination path of export files. Ignored if argument \code{exports = FALSE}.}
 }
 \value{
 A list of target objects for processing \code{mzML} data files using spectral binning..
@@ -65,10 +68,6 @@ targets::tar_dir({
 targets::tar_dir({
     targets::tar_script({
         library(hrmtargets)
-        file_paths <- metaboData::filePaths('FIE-HRMS','UrineTechnical',
-                                            ask = FALSE)
-        sample_info <- metaboData::runinfo('FIE-HRMS','UrineTechnical',
-                                           ask = FALSE)
         name <- rlang::sym('example')
         
         list(
