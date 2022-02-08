@@ -174,7 +174,7 @@ pre_treatment_plots <- function(name,cls){
                'unsupervised_RF',
                'supervised_RF')
     
-    plot_targets <- lapply(plots,function(x,name){
+    plot_targets <- lapply(plots,function(x,name,cls){
         plot_name <- paste0(name,'_plot_',x)
         results_name <- sym(paste0(name,'_results_pre_treatment'))
         
@@ -196,7 +196,9 @@ pre_treatment_plots <- function(name,cls){
         
         tar_target_raw(plot_name,
                        plot_command)
-    },name = name)
+    },
+    name = name,
+    cls = cls)
     
     return(plot_targets)
 }
