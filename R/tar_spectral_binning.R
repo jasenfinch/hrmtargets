@@ -17,7 +17,7 @@
 #' ## Perform spectral binning by specifiying the file paths and sample information directly
 #' targets::tar_dir({
 #'     targets::tar_script({
-#'         devtools::load_all('~/Documents/tools/R-Package-dev/hrmtargets/')
+#'         library(hrmtargets)
 #'         file_paths <- metaboData::filePaths('FIE-HRMS','UrineTechnical',
 #'                                             ask = FALSE)
 #'         sample_info <- metaboData::runinfo('FIE-HRMS','UrineTechnical',
@@ -98,12 +98,8 @@ tar_spectral_binning <- function(name,
             envir = envir,
             tidy_eval = tidy_eval
         )    
-    } else{
-        command_parameters <- tar_tidy_eval(
-            expr(!!parameters),
-            envir = envir,
-            tidy_eval = tidy_eval
-        )
+    } else {
+        command_parameters <- call2(function(x) x,parameters)
     }
     
     
