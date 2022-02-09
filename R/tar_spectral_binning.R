@@ -5,7 +5,7 @@
 #' @param sample_info A tibble containing the sample information. See details for the specifications. If `NULL`, target input will be expected from an existing target. See details.
 #' @param parameters S4 object of class `BinParameters`. If `NULL`, `binneR::detectParameters()` will be used to detect the spectral binning parameters automatically..
 #' @param verbose Show spectral processing console output.
-#' @param plots Boolean. Include additional plotting targets.
+#' @param plots A character vector of plot types. Set to `NULL` to skip all plots.
 #' @param summary Boolean. Include additional summary targets.
 #' @param exports Boolean. Include additional export targets.
 #' @param export_path Destination path of export files. Ignored if argument `exports = FALSE`.
@@ -59,8 +59,12 @@ tar_spectral_binning <- function(name,
                                  mzML = NULL,
                                  sample_info = NULL,
                                  parameters = NULL,
+                                 plots = c('chromatogram',
+                                           'fingerprint',
+                                           'TIC',
+                                           'purity_dist',
+                                           'centrality_dist'),
                                  verbose = TRUE,
-                                 plots = TRUE,
                                  summary = TRUE,
                                  exports = TRUE,
                                  export_path = 'exports/spectral_processing'){
@@ -70,6 +74,16 @@ tar_spectral_binning <- function(name,
             stop('If specified, argument `parameters` should be of S4 class `BinParameters`.',
                  call. = FALSE)
         }
+    }
+    
+    if (length(plots) > 0){
+        plots <- match.arg(plots,
+                           c('chromatogram',
+                             'fingerprint',
+                             'TIC',
+                             'purity_dist',
+                             'centrality_dist'),
+                           several.ok = TRUE)   
     }
     
     envir <- tar_option_get("envir")
@@ -126,9 +140,9 @@ tar_spectral_binning <- function(name,
     spectral_binning_list <- list(target_parameters,
                                   target_results)
     
-    if (isTRUE(plots)){
+    if (length(plots) > 0){
         spectral_binning_list <- c(spectral_binning_list,
-                                   spectral_binning_plots(name))
+                                   spectral_binning_plots(name,plots))
     }
     
     if (isTRUE(summary)) {
@@ -167,12 +181,7 @@ tar_spectral_binning <- function(name,
 }
 
 
-spectral_binning_plots <- function(name){
-    plots <- c('chromatogram',
-               'fingerprint',
-               'TIC',
-               'purity_dist',
-               'centrality_dist')
+spectral_binning_plots <- function(name,plots){
     
     plot_targets <- lapply(plots,function(x,name){
         plot_name <- paste0(name,'_plot_',x)

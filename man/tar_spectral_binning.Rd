@@ -9,8 +9,8 @@ tar_spectral_binning(
   mzML = NULL,
   sample_info = NULL,
   parameters = NULL,
+  plots = c("chromatogram", "fingerprint", "TIC", "purity_dist", "centrality_dist"),
   verbose = TRUE,
-  plots = TRUE,
   summary = TRUE,
   exports = TRUE,
   export_path = "exports/spectral_processing"
@@ -25,9 +25,9 @@ tar_spectral_binning(
 
 \item{parameters}{S4 object of class \code{BinParameters}. If \code{NULL}, \code{binneR::detectParameters()} will be used to detect the spectral binning parameters automatically..}
 
-\item{verbose}{Show spectral processing console output.}
+\item{plots}{A character vector of plot types. Set to \code{NULL} to skip all plots.}
 
-\item{plots}{Boolean. Include additional plotting targets.}
+\item{verbose}{Show spectral processing console output.}
 
 \item{summary}{Boolean. Include additional summary targets.}
 
