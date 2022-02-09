@@ -26,6 +26,8 @@ tar_profiling(
 
 \item{sample_info}{A tibble containing the sample information. See details for the specifications. If \code{NULL}, target input will be expected from an existing target. See details.}
 
+\item{cls}{Sample information column to use for plotting.}
+
 \item{parameters}{S4 object of class \code{ProfileParameters}. If \code{NULL}, default parameters for argument \code{technique} will be used.}
 
 \item{plots}{Boolean. Include additional plotting targets.}

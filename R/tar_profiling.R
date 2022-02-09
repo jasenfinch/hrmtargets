@@ -4,7 +4,7 @@
 #' @param technique The profiling technique to use. Should be one of the values returned by `profilePro::availableTechniques()`.
 #' @param mzML A character vector of mzML data file paths. If `NULL`, target input will be expected from an existing target. See details.
 #' @param sample_info A tibble containing the sample information. See details for the specifications. If `NULL`, target input will be expected from an existing target. See details.
-#' @param cls
+#' @param cls Sample information column to use for plotting.
 #' @param parameters S4 object of class `ProfileParameters`. If `NULL`, default parameters for argument `technique` will be used.
 #' @param plots Boolean. Include additional plotting targets.
 #' @param summary Boolean. Include additional summary targets.
