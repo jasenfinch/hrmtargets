@@ -11,7 +11,7 @@ tar_pre_treatment(
   cls = "class",
   QCidx = "QC",
   verbose = TRUE,
-  plots = TRUE,
+  plots = c("PCA", "LDA", "unsupervised_RF", "supervised_RF"),
   exports = TRUE,
   export_path = "exports/pre-treated"
 )
@@ -29,7 +29,7 @@ tar_pre_treatment(
 
 \item{verbose}{Show pre-treatment console output.}
 
-\item{plots}{Boolean. Include additional plotting targets.}
+\item{plots}{A character vector of plot types. Set to \code{NULL} to skip all plots.}
 
 \item{exports}{Boolean. Include additional export targets.}
 

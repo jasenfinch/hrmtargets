@@ -6,7 +6,7 @@
 #' @param cls The name of the sample information table column containing the sample class information for parameter detection and plotting. Ignored for parameters if argument `parameters` is not `NULL`.
 #' @param QCidx QC sample class label. Ignored if argument `parameters` is not `NULL`.
 #' @param verbose Show pre-treatment console output.
-#' @param plots Boolean. Include additional plotting targets.
+#' @param plots A character vector of plot types. Set to `NULL` to skip all plots.
 #' @param exports Boolean. Include additional export targets.
 #' @param export_path Destination path of export files. Ignored if argument `exports = FALSE`.
 #' @details 
@@ -65,7 +65,10 @@ tar_pre_treatment <- function(name,
                               cls = 'class',
                               QCidx = 'QC',
                               verbose = TRUE,
-                              plots = TRUE,
+                              plots = c('PCA',
+                                        'LDA',
+                                        'unsupervised_RF',
+                                        'supervised_RF'),
                               exports = TRUE,
                               export_path = "exports/pre-treated"){
     if (!is.null(parameters)) {
@@ -73,6 +76,15 @@ tar_pre_treatment <- function(name,
             stop('If specified, argument `parameters` should be of S4 class `AnalysisParameters`.',
                  call. = FALSE)
         }
+    }
+    
+    if (length(plots) > 0){
+        plots <- match.arg(plots,
+                           c('PCA',
+                             'LDA',
+                             'unsupervised_RF',
+                             'supervised_RF'),
+                           several.ok = TRUE)   
     }
     
     envir <- tar_option_get("envir")
@@ -124,9 +136,11 @@ tar_pre_treatment <- function(name,
     pre_treatment_list <- list(target_parameters,
                                target_results)
     
-    if (isTRUE(plots)){
+    if (length(plots) > 0){
         pre_treatment_list <- c(pre_treatment_list,
-                                pre_treatment_plots(name,cls))
+                                pre_treatment_plots(name,
+                                                    plots,
+                                                    cls))
     }
     
     if (isTRUE(exports)) {
@@ -160,19 +174,15 @@ tar_pre_treatment <- function(name,
         )
         
         pre_treatment_list <- c(pre_treatment_list,
-                                   list(export_target,
-                                        export_info_target)
+                                list(export_target,
+                                     export_info_target)
         )
     }
     
     return(pre_treatment_list)
 }
 
-pre_treatment_plots <- function(name,cls){
-    plots <- c('PCA',
-               'LDA',
-               'unsupervised_RF',
-               'supervised_RF')
+pre_treatment_plots <- function(name,plots,cls){
     
     plot_targets <- lapply(plots,function(x,name,cls){
         plot_name <- paste0(name,'_plot_',x)
