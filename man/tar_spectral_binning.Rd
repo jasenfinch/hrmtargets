@@ -12,7 +12,6 @@ tar_spectral_binning(
   plots = c("chromatogram", "fingerprint", "TIC", "purity_dist", "centrality_dist"),
   verbose = TRUE,
   summary = TRUE,
-  exports = TRUE,
   export_path = "exports/spectral_processing"
 )
 }
@@ -31,9 +30,7 @@ tar_spectral_binning(
 
 \item{summary}{Boolean. Include additional summary targets.}
 
-\item{exports}{Boolean. Include additional export targets.}
-
-\item{export_path}{Destination path of export files. Ignored if argument \code{exports = FALSE}.}
+\item{export_path}{Destination path of export files. Set to \code{NULL} to skip exports.}
 }
 \value{
 A list of target objects for processing \code{mzML} data files using spectral binning.
@@ -70,7 +67,7 @@ targets::tar_dir({
 targets::tar_dir({
     targets::tar_script({
         library(hrmtargets)
-        name <- rlang::sym('example')
+        name <- rlang::expr(example)
         
         list(
             tar_input_piggyback(!!name,

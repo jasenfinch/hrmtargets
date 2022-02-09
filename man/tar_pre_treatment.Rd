@@ -73,7 +73,7 @@ targets::tar_dir({
 targets::tar_dir({
     targets::tar_script({
         library(hrmtargets)
-        name <- rlang::sym('example')
+        name <- rlang::expr(example)
         
         list(
             tar_input_piggyback(!!name,

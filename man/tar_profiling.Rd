@@ -73,7 +73,7 @@ targets::tar_dir({
 ## Perform spectral binning by using tar_input_piggyback() 
 targets::tar_dir({
     targets::tar_script({
-        name <- rlang::sym('example')
+        name <- rlang::expr(example)
         library(hrmtargets)
         file_paths <- metaboData::filePaths('RP-UHPLC-HRMS','BdistachyonEcotypes',
                                             ask = FALSE)
