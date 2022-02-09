@@ -40,8 +40,7 @@ targets::tar_dir({
                                 'FIE-HRMS_BdistachyonTechnical',
                                 repo = 'jasenfinch/metaboData'),
             tar_spectral_processing(!!name,
-                                    technique = 'FIE-HRMS',
-                                    export = FALSE)
+                                    technique = 'FIE-HRMS')
         )
     })
     targets::tar_make()

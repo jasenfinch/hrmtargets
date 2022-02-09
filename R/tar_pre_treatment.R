@@ -7,8 +7,7 @@
 #' @param QCidx QC sample class label. Ignored if argument `parameters` is not `NULL`.
 #' @param verbose Show pre-treatment console output.
 #' @param plots A character vector of plot types. Set to `NULL` to skip all plots.
-#' @param exports Boolean. Include additional export targets.
-#' @param export_path Destination path of export files. Ignored if argument `exports = FALSE`.
+#' @param export_path Destination path of export files. Set to `NULL` to skip exports.
 #' @details 
 #' Specifying argument `spectral_processed` as `NULL` enables the use additional target factories outputing spectrally processed data. See the examples below.
 #' @return 
@@ -143,7 +142,7 @@ tar_pre_treatment <- function(name,
                                                     cls))
     }
     
-    if (isTRUE(exports)) {
+    if (!is.null(export_path)) {
         export_name <- paste0(name,'_export_pre_treatment')
         export_info_name <- paste0(name,'_export_pre_treatment_sample_info')
         command_export <- tar_tidy_eval(

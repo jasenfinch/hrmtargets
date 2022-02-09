@@ -31,9 +31,7 @@ tar_pre_treatment(
 
 \item{plots}{A character vector of plot types. Set to \code{NULL} to skip all plots.}
 
-\item{exports}{Boolean. Include additional export targets.}
-
-\item{export_path}{Destination path of export files. Ignored if argument \code{exports = FALSE}.}
+\item{export_path}{Destination path of export files. Set to \code{NULL} to skip exports.}
 }
 \value{
 A list of target objects for processing \code{mzML} data files using spectral binning.

@@ -8,8 +8,7 @@
 #' @param parameters S4 object of class `ProfileParameters`. If `NULL`, default parameters for argument `technique` will be used.
 #' @param plots A character vector of plot types. Set to `NULL` to skip all plots.
 #' @param summary Boolean. Include additional summary targets.
-#' @param exports Boolean. Include additional export targets.
-#' @param export_path Destination path of export files. Ignored if argument `exports = FALSE`.
+#' @param export_path Destination path of export files. Set to `NULL` to skip exports.
 #' @details 
 #' Specifying arguments `mzML` and `sample_info` as `NULL` enables the use of one of the data file and sample information from one of the input target factories, `tar_input_file_path()`, `tar_input_grover()` or `tar_input_piggyback()`. See the example using `tar_input_piggyback()` below.
 #' @return 
@@ -71,7 +70,6 @@ tar_profiling <- function(name,
                           plots = c('chromatogram',
                                     'TIC'),
                           summary = TRUE,
-                          exports = TRUE,
                           export_path = 'exports/spectral_processing'){
     
     if (!is.null(parameters)) {
@@ -161,7 +159,7 @@ tar_profiling <- function(name,
         )
     }
     
-    if (isTRUE(exports)) {
+    if (!is.null(export_path)) {
         export_name <- paste0(name,'_export_processed_data')
         command_export <- tar_tidy_eval(
             expr(metaboMisc::export(!!sym(results_name),

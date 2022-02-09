@@ -13,7 +13,6 @@ tar_profiling(
   parameters = NULL,
   plots = c("chromatogram", "TIC"),
   summary = TRUE,
-  exports = TRUE,
   export_path = "exports/spectral_processing"
 )
 }
@@ -34,9 +33,7 @@ tar_profiling(
 
 \item{summary}{Boolean. Include additional summary targets.}
 
-\item{exports}{Boolean. Include additional export targets.}
-
-\item{export_path}{Destination path of export files. Ignored if argument \code{exports = FALSE}.}
+\item{export_path}{Destination path of export files. Set to \code{NULL} to skip exports.}
 }
 \value{
 A list of target objects for processing \code{mzML} data files using \code{profilePro}.
