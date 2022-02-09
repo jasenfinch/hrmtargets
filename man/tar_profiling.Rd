@@ -11,7 +11,7 @@ tar_profiling(
   sample_info = NULL,
   cls = "class",
   parameters = NULL,
-  plots = TRUE,
+  plots = c("chromatogram", "TIC"),
   summary = TRUE,
   exports = TRUE,
   export_path = "exports/spectral_processing"
@@ -30,7 +30,7 @@ tar_profiling(
 
 \item{parameters}{S4 object of class \code{ProfileParameters}. If \code{NULL}, default parameters for argument \code{technique} will be used.}
 
-\item{plots}{Boolean. Include additional plotting targets.}
+\item{plots}{A character vector of plot types. Set to \code{NULL} to skip all plots.}
 
 \item{summary}{Boolean. Include additional summary targets.}
 

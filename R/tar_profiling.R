@@ -6,7 +6,7 @@
 #' @param sample_info A tibble containing the sample information. See details for the specifications. If `NULL`, target input will be expected from an existing target. See details.
 #' @param cls Sample information column to use for plotting.
 #' @param parameters S4 object of class `ProfileParameters`. If `NULL`, default parameters for argument `technique` will be used.
-#' @param plots Boolean. Include additional plotting targets.
+#' @param plots A character vector of plot types. Set to `NULL` to skip all plots.
 #' @param summary Boolean. Include additional summary targets.
 #' @param exports Boolean. Include additional export targets.
 #' @param export_path Destination path of export files. Ignored if argument `exports = FALSE`.
@@ -68,7 +68,8 @@ tar_profiling <- function(name,
                           sample_info = NULL,
                           cls = 'class',
                           parameters = NULL,
-                          plots = TRUE,
+                          plots = c('chromatogram',
+                                    'TIC'),
                           summary = TRUE,
                           exports = TRUE,
                           export_path = 'exports/spectral_processing'){
@@ -78,6 +79,13 @@ tar_profiling <- function(name,
             stop('If specified, argument `parameters` should be of S4 class `ProfileParameters`.',
                  call. = FALSE)
         }
+    }
+    
+    if (length(plots) > 0){
+        plots <- match.arg(plots,
+                           c('chromatogram',
+                             'TIC'),
+                           several.ok = TRUE)   
     }
     
     envir <- tar_option_get("envir")
@@ -133,9 +141,10 @@ tar_profiling <- function(name,
     profiling_list <- list(target_parameters,
                            target_results)
     
-    if (isTRUE(plots)){
+    if (length(plots) > 0){
         profiling_list <- c(profiling_list,
                             profiling_plots(name,
+                                            plots,
                                             cls))
     }
     
@@ -175,9 +184,7 @@ tar_profiling <- function(name,
 }
 
 
-profiling_plots <- function(name,cls){
-    plots <- c('chromatogram',
-               'TIC')
+profiling_plots <- function(name,plots,cls){
     
     plot_targets <- lapply(plots,function(x,name,cls){
         plot_name <- paste0(name,'_plot_',x)
