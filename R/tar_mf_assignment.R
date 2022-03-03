@@ -64,21 +64,26 @@ tar_mf_assignment <- function(name,
     
     name <- tar_deparse_language(enexpr(name))
     
-    if (is.null(feature_data)){
-        feature_data_name <- sym(paste0(name,'_results_pre_treatment'))
-    } else {
-        feature_data_name <- feature_data
-    }
-    
     parameters_name <- paste0(name,'_parameters_molecular_formula_assignment')
     results_name <- paste0(name,'_results_molecular_formula_assignment')
     
     command_parameters <- call2(function(x) x,parameters)
     
+    if (is.null(feature_data)){
+        feature_data_name <- sym(paste0(name,'_results_pre_treatment'))
+        results_expr <- expr(MFassign::assignMFs(feature_data = !!feature_data_name,
+                                                 parameters = !!sym(parameters_name),
+                                                 verbose = !!verbose,
+                                                 type = 'pre-treated'))
+    } else {
+        feature_data_name <- feature_data
+        results_expr <- expr(MFassign::assignMFs(feature_data = !!feature_data_name,
+                                                 parameters = !!sym(parameters_name),
+                                                 verbose = !!verbose))
+    }
+    
     command_results <- tar_tidy_eval(
-        expr(MFassign::assignMFs(dat = !!feature_data_name,
-                                 parameters = !!sym(parameters_name),
-                                 verbose = !!verbose)),
+        results_expr,
         envir = envir,
         tidy_eval = tidy_eval
     )
