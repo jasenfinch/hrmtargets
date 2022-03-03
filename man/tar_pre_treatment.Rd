@@ -12,7 +12,6 @@ tar_pre_treatment(
   QCidx = "QC",
   verbose = TRUE,
   plots = c("PCA", "LDA", "unsupervised_RF", "supervised_RF"),
-  exports = TRUE,
   export_path = "exports/pre-treated"
 )
 }

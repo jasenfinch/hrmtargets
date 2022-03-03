@@ -68,7 +68,6 @@ tar_pre_treatment <- function(name,
                                         'LDA',
                                         'unsupervised_RF',
                                         'supervised_RF'),
-                              exports = TRUE,
                               export_path = "exports/pre-treated"){
     if (!is.null(parameters)) {
         if (class(parameters) != 'AnalysisParameters'){
