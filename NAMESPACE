@@ -3,6 +3,7 @@
 export(tar_input_file_path)
 export(tar_input_grover)
 export(tar_input_piggyback)
+export(tar_mf_assignment)
 export(tar_pre_treatment)
 export(tar_profiling)
 export(tar_spectral_binning)
