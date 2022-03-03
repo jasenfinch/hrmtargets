@@ -1,7 +1,7 @@
 #' Spectral processing using spectral binning
 #' @description Targets for spectral processing of FIE-HRMS data using spectral binning.
 #' @param name Symbol. The name for the collection of targets. This serves as a prefix for target names.
-#' @param mzML A characer vector of mzML data file paths. If `NULL`, target input will be expected from an existing target. See details.
+#' @param mzML A character vector of mzML data file paths. If `NULL`, target input will be expected from an existing target. See details.
 #' @param sample_info A tibble containing the sample information. See details for the specifications. If `NULL`, target input will be expected from an existing target. See details.
 #' @param parameters S4 object of class `BinParameters`. If `NULL`, `binneR::detectParameters()` will be used to detect the spectral binning parameters automatically..
 #' @param verbose Show spectral processing console output.

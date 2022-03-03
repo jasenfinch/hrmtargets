@@ -18,7 +18,7 @@ tar_spectral_binning(
 \arguments{
 \item{name}{Symbol. The name for the collection of targets. This serves as a prefix for target names.}
 
-\item{mzML}{A characer vector of mzML data file paths. If \code{NULL}, target input will be expected from an existing target. See details.}
+\item{mzML}{A character vector of mzML data file paths. If \code{NULL}, target input will be expected from an existing target. See details.}
 
 \item{sample_info}{A tibble containing the sample information. See details for the specifications. If \code{NULL}, target input will be expected from an existing target. See details.}
 
