@@ -34,5 +34,5 @@ Remotes: aberHRML/binneR,
         jasenfinch/grover,
         jasenfinch/metabolyseR,
         jasenfinch/metaboMisc,
-        jasenfinch/MFassign@tmp
+        jasenfinch/MFassign@devel
 Config/testthat/edition: 3
