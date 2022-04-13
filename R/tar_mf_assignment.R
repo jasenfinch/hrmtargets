@@ -66,6 +66,7 @@ tar_mf_assignment <- function(name,
     
     parameters_name <- paste0(name,'_parameters_molecular_formula_assignment')
     results_name <- paste0(name,'_results_molecular_formula_assignment')
+    assigned_data_name <- paste0(name,'_assigned_data')
     
     command_parameters <- call2(function(x) x,parameters)
     
@@ -88,6 +89,13 @@ tar_mf_assignment <- function(name,
         tidy_eval = tidy_eval
     )
     
+    command_assigned_data <- tar_tidy_eval(
+        expr(metaboMisc::addAssignments(!!feature_data_name,
+                                        !!sym(results_name))),
+        envir = envir,
+        tidy_eval = tidy_eval
+    )
+    
     target_parameters <- tar_target_raw(
         parameters_name,
         command_parameters
@@ -96,6 +104,11 @@ tar_mf_assignment <- function(name,
     target_results <- tar_target_raw(
         results_name,
         command_results
+    )
+    
+    target_assigned_data <- tar_target_raw(
+        assigned_data_name,
+        command_assigned_data
     )
     
     assignment_list <- list(target_parameters,
