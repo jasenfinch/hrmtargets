@@ -112,7 +112,8 @@ tar_mf_assignment <- function(name,
     )
     
     assignment_list <- list(target_parameters,
-                            target_results)
+                            target_results,
+                            target_assigned_data)
     
     if (isTRUE(summary)) {
         summary_name <- paste0(name,'_summary_assignments')
