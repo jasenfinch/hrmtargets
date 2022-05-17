@@ -45,7 +45,7 @@ default \code{TRUE}.}
 \item{use_timestamps}{DEPRECATED.}
 
 \item{show_progress}{logical, show a progress bar be shown for uploading?
-Defaults to \code{TRUE}.}
+Defaults to \code{TRUE} - can also set globally with options("piggyback.verbose")}
 
 \item{.token}{GitHub authentication token, see \verb{[gh::gh_token()]}}
 }
