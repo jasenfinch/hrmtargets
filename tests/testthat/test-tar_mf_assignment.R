@@ -11,7 +11,7 @@ test_that("tar_mf_assignment() throws an error if an incorrect parameters object
 
 test_that("tar_mf_assignment() works if the `feature_data` argument is specified directly", {
     targets <- tar_mf_assignment(example,
-                                 feature_data = MFassign::feature_data)
+                                 feature_data = assignments::feature_data)
     
     expect_identical(class(targets),'list')
 })

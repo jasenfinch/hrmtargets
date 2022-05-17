@@ -18,7 +18,7 @@
 #'         library(hrmtargets)
 #'         
 #'         list(
-#'             tar_mf_assignment(MFassign::feature_data)
+#'             tar_mf_assignment(assignments::feature_data)
 #'         )
 #'     })
 #'     targets::tar_make()
@@ -50,7 +50,7 @@
 
 tar_mf_assignment <- function(name,
                               feature_data = NULL,
-                              parameters = MFassign::assignmentParameters('FIE'),
+                              parameters = assignments::assignmentParameters('FIE'),
                               verbose = TRUE,
                               summary = TRUE,
                               export_path = 'exports/molecular_formula_assignments'){
@@ -72,13 +72,13 @@ tar_mf_assignment <- function(name,
     
     if (is.null(feature_data)){
         feature_data_name <- sym(paste0(name,'_results_pre_treatment'))
-        results_expr <- expr(MFassign::assignMFs(feature_data = !!feature_data_name,
+        results_expr <- expr(assignments::assignMFs(feature_data = !!feature_data_name,
                                                  parameters = !!sym(parameters_name),
                                                  verbose = !!verbose,
                                                  type = 'pre-treated'))
     } else {
         feature_data_name <- feature_data
-        results_expr <- expr(MFassign::assignMFs(feature_data = !!feature_data_name,
+        results_expr <- expr(assignments::assignMFs(feature_data = !!feature_data_name,
                                                  parameters = !!sym(parameters_name),
                                                  verbose = !!verbose))
     }
@@ -117,7 +117,7 @@ tar_mf_assignment <- function(name,
     
     if (isTRUE(summary)) {
         summary_name <- paste0(name,'_summary_assignments')
-        command_summary <- expr(MFassign::summariseAssignment(!!sym(results_name)))
+        command_summary <- expr(assignments::summariseAssignment(!!sym(results_name)))
         summary_targets <- tar_target_raw(
             summary_name,
             command_summary

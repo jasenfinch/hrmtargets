@@ -7,7 +7,7 @@
 tar_mf_assignment(
   name,
   feature_data = NULL,
-  parameters = MFassign::assignmentParameters("FIE"),
+  parameters = assignments::assignmentParameters("FIE"),
   verbose = TRUE,
   summary = TRUE,
   export_path = "exports/molecular_formula_assignments"
@@ -43,7 +43,7 @@ targets::tar_dir({
         library(hrmtargets)
         
         list(
-            tar_mf_assignment(MFassign::feature_data)
+            tar_mf_assignment(assignments::feature_data)
         )
     })
     targets::tar_make()
