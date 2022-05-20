@@ -117,7 +117,7 @@ tar_mf_assignment <- function(name,
     
     if (isTRUE(summary)) {
         summary_name <- paste0(name,'_summary_assignments')
-        command_summary <- expr(assignments::summariseAssignment(!!sym(results_name)))
+        command_summary <- expr(assignments::summariseAssignments(!!sym(results_name)))
         summary_targets <- tar_target_raw(
             summary_name,
             command_summary
