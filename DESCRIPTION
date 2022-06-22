@@ -9,6 +9,7 @@ Description: A pipeline toolkit for workflows using the 'targets' R package for
 URL: https://jasenfinch.github.io/hrmtargets/
 License: GPL (>= 3)
 Imports: binneR,
+        construction,
         gert,
         gh,
         grover,
@@ -31,8 +32,9 @@ Suggests:
     metaboData,
     testthat (>= 3.0.0)
 Remotes: aberHRML/binneR,
+        jasenfinch/construction@devel,
         jasenfinch/grover,
-        jasenfinch/metabolyseR,
-        jasenfinch/metaboMisc,
+        jasenfinch/metabolyseR@devel,
+        jasenfinch/metaboMisc@devel,
         jasenfinch/MFassign@devel
 Config/testthat/edition: 3
