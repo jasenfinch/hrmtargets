@@ -7,11 +7,11 @@
 tar_construction(
   name,
   x = NULL,
-  library_path = tempdir(),
+  library_path = "data/structural_classifications",
   db = "kegg",
   organism = character(),
   threshold = 50,
-  classyfireR_cache = NULL,
+  classyfireR_cache = "data/structural_classifications/classyfireR_cache.db",
   summary = TRUE,
   export_path = "exports/structural_classifications"
 )

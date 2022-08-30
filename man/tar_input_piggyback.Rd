@@ -33,8 +33,7 @@ all assets attached to the release will be downloaded.}
 
 \item{ext}{The file extension of the converted (mzML) data files.}
 
-\item{repo}{Repository name in format "owner/repo". Will guess the current
-repo if not specified.}
+\item{repo}{Repository name in format "owner/repo". Defaults to \code{guess_repo()}.}
 
 \item{overwrite}{Should any local files of the same name be overwritten?
 default \code{TRUE}.}
@@ -45,7 +44,7 @@ default \code{TRUE}.}
 \item{use_timestamps}{DEPRECATED.}
 
 \item{show_progress}{logical, show a progress bar be shown for uploading?
-Defaults to \code{TRUE} - can also set globally with options("piggyback.verbose")}
+Defaults to \verb{[interactive()]} - can also set globally with options("piggyback.verbose")}
 
 \item{.token}{GitHub authentication token, see \verb{[gh::gh_token()]}}
 }
