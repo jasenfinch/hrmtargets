@@ -20,7 +20,7 @@ tar_pre_treatment(
 
 \item{spectral_processed}{S4 object of class \code{Binalysis} or \code{MetaboProfile}. If \code{NULL}, target input will be expected from an existing target. See details.}
 
-\item{parameters}{S4 object of class \code{AnalysisParameters} containing pre-treatment parameters. If \code{NULL}, \code{metaboMisc::detectPretreatmentParameters()} will be used to detect the pre-treatment parameters based on the \code{cls} argument.}
+\item{parameters}{An object of S4 class \code{AnalysisParameters} containing pre-treatment parameters or a symbol containing the name of a target to use for input parameters. If \code{NULL}, \code{metaboMisc::detectPretreatmentParameters()} will be used to detect the pre-treatment parameters based on the \code{cls} argument.}
 
 \item{cls}{The name of the sample information table column containing the sample class information for parameter detection and plotting. Ignored for parameters if argument \code{parameters} is not \code{NULL}.}
 

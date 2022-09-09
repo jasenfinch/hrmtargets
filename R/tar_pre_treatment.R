@@ -2,7 +2,7 @@
 #' @description Targets for pre-treatment of spectral processed data.
 #' @param name Symbol. The name for the collection of targets. This serves as a prefix for target names.
 #' @param spectral_processed S4 object of class `Binalysis` or `MetaboProfile`. If `NULL`, target input will be expected from an existing target. See details.
-#' @param parameters S4 object of class `AnalysisParameters` containing pre-treatment parameters. If `NULL`, `metaboMisc::detectPretreatmentParameters()` will be used to detect the pre-treatment parameters based on the `cls` argument.
+#' @param parameters An object of S4 class `AnalysisParameters` containing pre-treatment parameters or a symbol containing the name of a target to use for input parameters. If `NULL`, `metaboMisc::detectPretreatmentParameters()` will be used to detect the pre-treatment parameters based on the `cls` argument.
 #' @param cls The name of the sample information table column containing the sample class information for parameter detection and plotting. Ignored for parameters if argument `parameters` is not `NULL`.
 #' @param QCidx QC sample class label. Ignored if argument `parameters` is not `NULL`.
 #' @param verbose Show pre-treatment console output.
@@ -56,6 +56,7 @@
 #'     targets::tar_read(example_plot_PCA)
 #' })
 #' }
+#' @importFrom rlang is_symbol
 #' @export
 
 tar_pre_treatment <- function(name,
@@ -69,12 +70,6 @@ tar_pre_treatment <- function(name,
                                         'unsupervised_RF',
                                         'supervised_RF'),
                               export_path = "exports/pre-treated"){
-    if (!is.null(parameters)) {
-        if (class(parameters) != 'AnalysisParameters'){
-            stop('If specified, argument `parameters` should be of S4 class `AnalysisParameters`.',
-                 call. = FALSE)
-        }
-    }
     
     if (length(plots) > 0){
         plots <- match.arg(plots,
@@ -90,14 +85,21 @@ tar_pre_treatment <- function(name,
     
     name <- tar_deparse_language(enexpr(name))
     
+    pre_treatment_list <- list()
+    
     if (is.null(spectral_processed)){
         spectral_processed_name <- sym(paste0(name,'_results_spectral_processing'))
     } else {
         spectral_processed_name <- spectral_processed
     }
     
-    parameters_name <- paste0(name,'_parameters_pre_treatment')
-    results_name <- paste0(name,'_results_pre_treatment')
+    if (is_symbol(parameters)){
+        parameters_name <- parameters
+    } else {
+        parameters_name <- paste0(name,'_parameters_pre_treatment')   
+    }
+    
+    command_parameters <- NULL
     
     if (is.null(parameters)){
         command_parameters <- tar_tidy_eval(
@@ -108,10 +110,25 @@ tar_pre_treatment <- function(name,
             envir = envir,
             tidy_eval = tidy_eval
         )    
-    } else {
+    }
+    
+    if (!is_symbol(parameters)){
         command_parameters <- call2(function(x) x,parameters)
     }
     
+    if (!is.null(command_parameters)){
+        target_parameters <- tar_target_raw(
+            parameters_name,
+            command_parameters
+        )
+        
+        pre_treatment_list <- c(
+            pre_treatment_list,
+            list(target_parameters)
+        )
+    }
+    
+    results_name <- paste0(name,'_results_pre_treatment')
     
     command_results <- tar_tidy_eval(
         expr(metaboMisc::preTreatModes(processed_data = !!spectral_processed_name,
@@ -121,18 +138,13 @@ tar_pre_treatment <- function(name,
         tidy_eval = tidy_eval
     )
     
-    target_parameters <- tar_target_raw(
-        parameters_name,
-        command_parameters
-    )
-    
     target_results <- tar_target_raw(
         results_name,
         command_results
     )
     
-    pre_treatment_list <- list(target_parameters,
-                               target_results)
+    pre_treatment_list <- c(pre_treatment_list,
+                            list(target_results))
     
     if (length(plots) > 0){
         pre_treatment_list <- c(pre_treatment_list,

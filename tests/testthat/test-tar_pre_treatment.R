@@ -4,9 +4,11 @@ test_that("tar_pre_treatment() works", {
     expect_identical(class(targets),'list')
 })
 
-test_that("tar_pre_treatment() throws an error if an incorrect parameters object is specified", {
-    expect_error(tar_pre_treatment(test,
-                                   parameters = 'wrong'))
+test_that("tar_pre_treatment() works when specifying the parameters as a symbol", {
+    targets <- tar_pre_treatment(test,
+                                 parameters = rlang::sym('pt_parameters'))
+    
+    expect_identical(class(targets),'list')
 })
 
 test_that("tar_pre_treatment() works if the `spectral_processed` argument is specified directly", {
