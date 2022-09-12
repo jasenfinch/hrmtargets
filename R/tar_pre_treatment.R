@@ -112,7 +112,7 @@ tar_pre_treatment <- function(name,
         )    
     }
     
-    if (!is_symbol(parameters)){
+    if (class(parameters) == 'AnalysisParameters'){
         command_parameters <- call2(function(x) x,parameters)
     }
     
