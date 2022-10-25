@@ -50,7 +50,7 @@ tar_spectral_processing <- function(name,
                                                                        technique = 'LCMS-RP',
                                                                        ...),
                                           `NP-LC-HRMS` = tar_profiling(name = !!name,
-                                                                       technique = 'LCMS-RP',
+                                                                       technique = 'LCMS-NP',
                                                                        ...))
     return(spectral_processing_targets)
 }
