@@ -31,6 +31,7 @@ Suggests:
     metaboData,
     testthat (>= 3.0.0)
 Remotes: aberHRML/binneR,
+        jasenfinch/profilePro,
         jasenfinch/construction@devel,
         jasenfinch/grover,
         jasenfinch/metabolyseR@devel,
