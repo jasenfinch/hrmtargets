@@ -31,10 +31,10 @@ Suggests:
     metaboData,
     testthat (>= 3.0.0)
 Remotes: aberHRML/binneR,
+        aberHRML/assignments,
         jasenfinch/profilePro,
-        jasenfinch/construction@devel,
+        jasenfinch/construction,
         jasenfinch/grover,
-        jasenfinch/metabolyseR@devel,
-        jasenfinch/metaboMisc@devel,
-        jasenfinch/MFassign@devel
+        jasenfinch/metabolyseR,
+        jasenfinch/metaboMisc,
 Config/testthat/edition: 3
