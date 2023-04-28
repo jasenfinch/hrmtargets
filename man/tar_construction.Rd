@@ -21,15 +21,15 @@ tar_construction(
 
 \item{x}{An S4 object of class \code{Assignment}.  If \code{NULL}, target input will be expected from an existing target. See details.}
 
-\item{library_path}{target file library_path for classification library for storing consensus classifications}
+\item{library_path}{the target file path for the classification library in which to store consensus classification data}
 
-\item{db}{databases to search. Can be either \code{kegg} and/or \code{pubchem}.}
+\item{db}{the databases to search. This can either be \code{kegg} and/or \code{pubchem}.}
 
-\item{organism}{KEGG organism ID. Ignored if kegg is not specified in db.}
+\item{organism}{the KEGG organism ID. This is Ignored if argument \code{db} is set to \code{pubchem}}
 
-\item{threshold}{percentage majority threshold for consensus classifications}
+\item{threshold}{the percentage majority threshold for consensus classification}
 
-\item{classyfireR_cache}{file library_path for a \code{classyfireR} cache. See the documentation of \code{classyfireR::get_classification} for more details.}
+\item{classyfireR_cache}{the file path for a \code{classyfireR} cache. See the documentation of \code{classyfireR::get_classification} for more details.}
 
 \item{summary}{Boolean. Include additional summary targets.}
 
