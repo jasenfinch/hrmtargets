@@ -24,6 +24,7 @@
 #' })
 #' @importFrom rlang expr sym
 #' @importFrom magrittr %>%
+#' @importFrom tarchetypes tar_files_raw
 #' @export
 
 tar_input_grover <- function(name,
