@@ -65,8 +65,7 @@ tar_input_piggyback <- function(name,
                                    show_progress = !!show_progress,
                                    .token = !!.token)
             
-            list.files(path = !!dest) %>% 
-                paste0(!!dest,'/',.)
+            paste0(!!dest,'/',list.files(path = !!dest)) 
         }),
         envir = envir,
         tidy_eval = tidy_eval
@@ -91,7 +90,7 @@ tar_input_piggyback <- function(name,
         command_release
     )
     
-    mzML_target <- tar_files_raw(
+    mzML_target <- tar_export_raw(
         mzML_name,
         command_mzML
     )
