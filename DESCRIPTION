@@ -1,6 +1,6 @@
 Package: hrmtargets
 Title: Targets for high resolution metabolomics workflows
-Version: 0.1.1
+Version: 0.1.0
 Authors@R: 
     person("Jasen", "Finch", , "jsf9@aber.ac.uk", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-6070-7476"))
