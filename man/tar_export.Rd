@@ -229,6 +229,19 @@ Dynamic branching over exported files. This has similar functionality to
 become invalidated each time the pipeline is run.
 }
 \examples{
-# example code
-
+## File export
+targets::tar_dir({
+    targets::tar_script({
+        library(hrmtargets)
+    
+        list(
+            tar_export(
+                example_export,
+                jfmisc::exportCSV(iris,'iris.csv')
+            )
+        )
+    })
+    targets::tar_make()
+    targets::tar_read(example_export)
+})
 }
