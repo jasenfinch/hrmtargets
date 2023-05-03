@@ -21,7 +21,7 @@
 #'                                 'FIE-HRMS_BdistachyonTechnical',
 #'                                 repo = 'jasenfinch/metaboData'),
 #'             tar_spectral_processing(!!name,
-#'                                     technique = 'FIE-HRMS')
+#'                                     type = 'FIE-HRMS')
 #'         )
 #'     })
 #'     targets::tar_make()
