@@ -11,6 +11,7 @@ License: GPL (>= 3)
 Imports: binneR,
         construction,
         gert,
+        gh,
         grover,
         magrittr,
         metabolyseR,
