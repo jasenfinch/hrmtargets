@@ -165,7 +165,7 @@ tar_spectral_binning <- function(name,
             tidy_eval = tidy_eval
         )
         
-        export_targets <- tar_files_raw(
+        export_targets <- tar_export_raw(
             export_name,
             command_export
         )
