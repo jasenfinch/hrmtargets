@@ -28,6 +28,11 @@ jobs:
         with:
           use-public-rspm: true
 
+      - name: Install Linux system dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt install libnetcdf-dev libglpk-dev texlive-base libsodium-dev libopenbabel-dev libeigen3-dev
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: |
