@@ -13,6 +13,39 @@
     <loc>https://jasenfinch.github.io/hrmtargets/index.html</loc>
   </url>
   <url>
+    <loc>https://jasenfinch.github.io/hrmtargets/news/index.html</loc>
+  </url>
+  <url>
     <loc>https://jasenfinch.github.io/hrmtargets/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://jasenfinch.github.io/hrmtargets/reference/tar_construction.html</loc>
+  </url>
+  <url>
+    <loc>https://jasenfinch.github.io/hrmtargets/reference/tar_export.html</loc>
+  </url>
+  <url>
+    <loc>https://jasenfinch.github.io/hrmtargets/reference/tar_input_file_path.html</loc>
+  </url>
+  <url>
+    <loc>https://jasenfinch.github.io/hrmtargets/reference/tar_input_grover.html</loc>
+  </url>
+  <url>
+    <loc>https://jasenfinch.github.io/hrmtargets/reference/tar_input_piggyback.html</loc>
+  </url>
+  <url>
+    <loc>https://jasenfinch.github.io/hrmtargets/reference/tar_mf_assignment.html</loc>
+  </url>
+  <url>
+    <loc>https://jasenfinch.github.io/hrmtargets/reference/tar_pre_treatment.html</loc>
+  </url>
+  <url>
+    <loc>https://jasenfinch.github.io/hrmtargets/reference/tar_profiling.html</loc>
+  </url>
+  <url>
+    <loc>https://jasenfinch.github.io/hrmtargets/reference/tar_spectral_binning.html</loc>
+  </url>
+  <url>
+    <loc>https://jasenfinch.github.io/hrmtargets/reference/tar_spectral_processing.html</loc>
   </url>
 </urlset>
