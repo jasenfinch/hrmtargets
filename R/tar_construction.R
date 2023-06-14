@@ -3,6 +3,7 @@
 #' @inheritParams construction::construction
 #' @param name  Symbol. The name for the collection of targets. This serves as a prefix for target names.
 #' @param x An S4 object of class `Assignment`.  If `NULL`, target input will be expected from an existing target. See details.
+#' @param plots A character vector of plot types. Set to `NULL` to skip all plots.
 #' @param summary Boolean. Include additional summary targets.
 #' @param export_path Destination path of export files. Set to `NULL` to skip exports.
 #' @details 
@@ -22,11 +23,16 @@
 #'         )
 #'         
 #'         list(
-#'             tar_construction(assignments::feature_data)
+#'             tar_construction(
+#'                 example,
+#'                 mf_assignments,
+#'                 library_path = paste0(tempdir(),'/construction_library'),
+#'                 classyfireR_cache = paste0(tempdir(),'/classyfireR_cache.db')
+#'             )
 #'         )
 #'     })
 #'     targets::tar_make()
-#'     targets::tar_read(example_summary_construction)
+#'     targets::tar_read(example_plot_sankey)
 #' })
 #' 
 #' ## Perform consensus structural classification by using inputs from other target factories.
@@ -42,7 +48,10 @@
 #'             tar_spectral_binning(!!name),
 #'             tar_pre_treatment(!!name),
 #'             tar_mf_assignment(!!name),
-#'             tar_construction(!!name)
+#'             tar_construction(!!name,
+#'                              library_path = paste0(tempdir(),'/construction_library'),
+#'                              classyfireR_cache = paste0(tempdir(),'/classyfireR_cache.db')
+#'             )
 #'         )
 #'     })
 #'     targets::tar_make()
@@ -58,6 +67,7 @@ tar_construction <- function(name,
                              organism = character(),
                              threshold = 50,
                              classyfireR_cache = 'data/structural_classifications/classyfireR_cache.db',
+                             plots = 'sankey',
                              summary = TRUE,
                              export_path = 'exports/structural_classifications'){
     
@@ -98,6 +108,19 @@ tar_construction <- function(name,
     )
     
     construction_list <- list(target_results)
+    
+    if (plots == 'sankey') {
+        plot_name <- paste0(name,'_plot_sankey')
+        command_plot <- expr(construction::plotSankey(!!sym(results_name)))
+        plot_targets <- tar_target_raw(
+            plot_name,
+            command_plot
+        )
+        
+        construction_list <- c(construction_list,
+                               list(plot_targets)
+        )
+    }
     
     if (isTRUE(summary)) {
         summary_name <- paste0(name,'_summary_construction')

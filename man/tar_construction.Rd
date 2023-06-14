@@ -12,6 +12,7 @@ tar_construction(
   organism = character(),
   threshold = 50,
   classyfireR_cache = "data/structural_classifications/classyfireR_cache.db",
+  plots = "sankey",
   summary = TRUE,
   export_path = "exports/structural_classifications"
 )
@@ -30,6 +31,8 @@ tar_construction(
 \item{threshold}{the percentage majority threshold for consensus classification}
 
 \item{classyfireR_cache}{the file path for a \code{classyfireR} cache. See the documentation of \code{classyfireR::get_classification} for more details.}
+
+\item{plots}{A character vector of plot types. Set to \code{NULL} to skip all plots.}
 
 \item{summary}{Boolean. Include additional summary targets.}
 
@@ -57,11 +60,16 @@ targets::tar_dir({
         )
         
         list(
-            tar_construction(assignments::feature_data)
+            tar_construction(
+                example,
+                mf_assignments,
+                library_path = paste0(tempdir(),'/construction_library'),
+                classyfireR_cache = paste0(tempdir(),'/classyfireR_cache.db')
+            )
         )
     })
     targets::tar_make()
-    targets::tar_read(example_summary_construction)
+    targets::tar_read(example_plot_sankey)
 })
 
 ## Perform consensus structural classification by using inputs from other target factories.
@@ -77,7 +85,10 @@ targets::tar_dir({
             tar_spectral_binning(!!name),
             tar_pre_treatment(!!name),
             tar_mf_assignment(!!name),
-            tar_construction(!!name)
+            tar_construction(!!name,
+                             library_path = paste0(tempdir(),'/construction_library'),
+                             classyfireR_cache = paste0(tempdir(),'/classyfireR_cache.db')
+            )
         )
     })
     targets::tar_make()
