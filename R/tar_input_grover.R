@@ -24,6 +24,7 @@
 #' })
 #' @importFrom rlang expr sym
 #' @importFrom magrittr %>%
+#' @importFrom tarchetypes tar_files_raw
 #' @export
 
 tar_input_grover <- function(name,
@@ -33,7 +34,7 @@ tar_input_grover <- function(name,
                              conversion_args = grover::conversionArgsPeakPick(),
                              data_dir = 'data/mzML'){
     
-    if (class(grover_client) != 'GroverClient'){
+    if (!inherits(grover_client,'GroverClient')){
         stop('Argument `grover_client` should be of S4 class `GroverClient`.',
              call. = FALSE)
     }

@@ -68,7 +68,7 @@ tar_spectral_binning <- function(name,
                                  export_path = 'exports/spectral_processing'){
     
     if (!is.null(parameters)) {
-        if (class(parameters) != 'BinParameters'){
+        if (!inherits(parameters,'BinParameters')){
             stop('If specified, argument `parameters` should be of S4 class `BinParameters`.',
                  call. = FALSE)
         }
@@ -165,7 +165,7 @@ tar_spectral_binning <- function(name,
             tidy_eval = tidy_eval
         )
         
-        export_targets <- tar_files_raw(
+        export_targets <- tar_export_raw(
             export_name,
             command_export
         )

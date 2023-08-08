@@ -34,7 +34,7 @@
 #' })
 #' @importFrom rlang enexpr call2
 #' @importFrom targets tar_deparse_language tar_target_raw tar_option_get tar_tidy_eval
-#' @importFrom tarchetypes tar_files_raw
+#' @importFrom tarchetypes tar_files_input_raw
 #' @importFrom tibble as_tibble
 #' @export
 
@@ -75,9 +75,9 @@ tar_input_file_path <- function(name,
     mzML_name <- paste0(name,'_mzML')
     sample_information_name <- paste0(name,'_sample_information')
     
-    mzML_target <- tar_files_raw(
+    mzML_target <- tar_files_input_raw(
         mzML_name,
-        call2(c,mzML_files)
+        mzML_files
     )
     
     sample_information_target <- tar_target_raw(

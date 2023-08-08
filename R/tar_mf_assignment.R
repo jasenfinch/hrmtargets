@@ -54,7 +54,7 @@ tar_mf_assignment <- function(name,
                               verbose = TRUE,
                               summary = TRUE,
                               export_path = 'exports/molecular_formula_assignments'){
-    if (class(parameters) != 'AssignmentParameters'){
+    if (!inherits(parameters,'AssignmentParameters')){
         stop('Argument `parameters` should be of S4 class `AssignmentParameters`.',
              call. = FALSE)
     }

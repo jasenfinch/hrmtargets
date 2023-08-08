@@ -73,7 +73,7 @@ tar_profiling <- function(name,
                           export_path = 'exports/spectral_processing'){
     
     if (!is.null(parameters)) {
-        if (class(parameters) != 'ProfileParameters'){
+        if (!inherits(parameters,'ProfileParameters')){
             stop('If specified, argument `parameters` should be of S4 class `ProfileParameters`.',
                  call. = FALSE)
         }
@@ -168,7 +168,7 @@ tar_profiling <- function(name,
             tidy_eval = tidy_eval
         )
         
-        export_targets <- tar_files_raw(
+        export_targets <- tar_export_raw(
             export_name,
             command_export
         )
