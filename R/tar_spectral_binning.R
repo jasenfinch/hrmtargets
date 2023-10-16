@@ -12,6 +12,7 @@
 #' Specifying arguments `mzML` and `sample_info` as `NULL` enables the use of one of the data file and sample information from one of the input target factories, `tar_input_file_path()`, `tar_input_grover()` or `tar_input_piggyback()`. See the example using `tar_input_piggyback()` below.
 #' @return 
 #' A list of target objects for processing `mzML` data files using spectral binning.
+#' @inheritParams targets::tar_target
 #' @examples 
 #' \dontrun{
 #' ## Perform spectral binning by specifying the file paths and sample information directly
@@ -65,7 +66,22 @@ tar_spectral_binning <- function(name,
                                            'centrality_dist'),
                                  verbose = TRUE,
                                  summary = TRUE,
-                                 export_path = 'exports/spectral_processing'){
+                                 export_path = 'exports/spectral_processing',
+                                 tidy_eval = targets::tar_option_get("tidy_eval"),
+                                 packages = targets::tar_option_get("packages"),
+                                 library = targets::tar_option_get("library"),
+                                 format = targets::tar_option_get("format"),
+                                 repository = targets::tar_option_get("repository"),
+                                 error = targets::tar_option_get("error"),
+                                 memory = targets::tar_option_get("memory"),
+                                 garbage_collection = targets::tar_option_get("garbage_collection"),
+                                 deployment = targets::tar_option_get("deployment"),
+                                 priority = targets::tar_option_get("priority"),
+                                 resources = targets::tar_option_get("resources"),
+                                 storage = targets::tar_option_get("storage"),
+                                 retrieval = targets::tar_option_get("retrieval"),
+                                 cue = targets::tar_option_get("cue")
+                                 ){
     
     if (!is.null(parameters)) {
         if (!inherits(parameters,'BinParameters')){
@@ -85,7 +101,6 @@ tar_spectral_binning <- function(name,
     }
     
     envir <- tar_option_get("envir")
-    tidy_eval <- tar_option_get("tidy_eval")
     
     name <- tar_deparse_language(enexpr(name))
     
@@ -127,12 +142,38 @@ tar_spectral_binning <- function(name,
     
     target_parameters <- tar_target_raw(
         parameters_name,
-        command_parameters
+        command_parameters,
+        packages = packages,
+        library = library,
+        format = format,
+        repository = repository,
+        error = error,
+        memory = memory,
+        garbage_collection = garbage_collection,
+        deployment = deployment,
+        priority = priority,
+        resources = resources,
+        storage = storage,
+        retrieval = retrieval,
+        cue = cue
     )
     
     target_results <- tar_target_raw(
         results_name,
-        command_results
+        command_results,
+        packages = packages,
+        library = library,
+        format = format,
+        repository = repository,
+        error = error,
+        memory = memory,
+        garbage_collection = garbage_collection,
+        deployment = deployment,
+        priority = priority,
+        resources = resources,
+        storage = storage,
+        retrieval = retrieval,
+        cue = cue
     )
     
     spectral_binning_list <- list(target_parameters,

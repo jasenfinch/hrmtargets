@@ -10,7 +10,7 @@ tar_construction(
   library_path = "data/structural_classifications",
   db = "kegg",
   organism = character(),
-  threshold = 50,
+  threshold = 66,
   classyfireR_cache = "data/structural_classifications/classyfireR_cache.db",
   plots = "sankey",
   summary = TRUE,
