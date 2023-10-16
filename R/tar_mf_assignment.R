@@ -10,6 +10,7 @@
 #' Specifying argument `feature_data` as `NULL` enables the use of input from the `tar_pre_treatment()` target factory, See the second example below.
 #' @return 
 #' A list of target objects for molecular formula assignment.
+#' @inheritParams targets::tar_target
 #' @examples 
 #' \dontrun{
 #' ## Perform molecular formula assignment by specifying the feature data directly
@@ -53,14 +54,28 @@ tar_mf_assignment <- function(name,
                               parameters = assignments::assignmentParameters('FIE'),
                               verbose = TRUE,
                               summary = TRUE,
-                              export_path = 'exports/molecular_formula_assignments'){
+                              export_path = 'exports/molecular_formula_assignments',
+                              tidy_eval = targets::tar_option_get("tidy_eval"),
+                              packages = targets::tar_option_get("packages"),
+                              library = targets::tar_option_get("library"),
+                              format = targets::tar_option_get("format"),
+                              repository = targets::tar_option_get("repository"),
+                              error = targets::tar_option_get("error"),
+                              memory = targets::tar_option_get("memory"),
+                              garbage_collection = targets::tar_option_get("garbage_collection"),
+                              deployment = targets::tar_option_get("deployment"),
+                              priority = targets::tar_option_get("priority"),
+                              resources = targets::tar_option_get("resources"),
+                              storage = targets::tar_option_get("storage"),
+                              retrieval = targets::tar_option_get("retrieval"),
+                              cue = targets::tar_option_get("cue")
+){
     if (!inherits(parameters,'AssignmentParameters')){
         stop('Argument `parameters` should be of S4 class `AssignmentParameters`.',
              call. = FALSE)
     }
     
     envir <- tar_option_get("envir")
-    tidy_eval <- tar_option_get("tidy_eval")
     
     name <- tar_deparse_language(enexpr(name))
     
@@ -73,14 +88,14 @@ tar_mf_assignment <- function(name,
     if (is.null(feature_data)){
         feature_data_name <- sym(paste0(name,'_results_pre_treatment'))
         results_expr <- expr(assignments::assignMFs(feature_data = !!feature_data_name,
-                                                 parameters = !!sym(parameters_name),
-                                                 verbose = !!verbose,
-                                                 type = 'pre-treated'))
+                                                    parameters = !!sym(parameters_name),
+                                                    verbose = !!verbose,
+                                                    type = 'pre-treated'))
     } else {
         feature_data_name <- feature_data
         results_expr <- expr(assignments::assignMFs(feature_data = !!feature_data_name,
-                                                 parameters = !!sym(parameters_name),
-                                                 verbose = !!verbose))
+                                                    parameters = !!sym(parameters_name),
+                                                    verbose = !!verbose))
     }
     
     command_results <- tar_tidy_eval(
@@ -103,7 +118,20 @@ tar_mf_assignment <- function(name,
     
     target_results <- tar_target_raw(
         results_name,
-        command_results
+        command_results,
+        packages = packages,
+        library = library,
+        format = format,
+        repository = repository,
+        error = error,
+        memory = memory,
+        garbage_collection = garbage_collection,
+        deployment = deployment,
+        priority = priority,
+        resources = resources,
+        storage = storage,
+        retrieval = retrieval,
+        cue = cue
     )
     
     target_assigned_data <- tar_target_raw(
@@ -130,10 +158,10 @@ tar_mf_assignment <- function(name,
     
     if (!is.null(export_path)) {
         export_name <- paste0(name,'_export_assignments')
-
+        
         command_export <- tar_tidy_eval(
             expr(metaboMisc::export(!!sym(results_name),
-                                        outPath = !!export_path)),
+                                    outPath = !!export_path)),
             envir = envir,
             tidy_eval = tidy_eval
         )
@@ -146,7 +174,7 @@ tar_mf_assignment <- function(name,
         
         
         assignment_list <- c(assignment_list,
-                                list(export_target)
+                             list(export_target)
         )
     }
     

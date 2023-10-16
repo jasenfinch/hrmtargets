@@ -10,7 +10,21 @@ tar_mf_assignment(
   parameters = assignments::assignmentParameters("FIE"),
   verbose = TRUE,
   summary = TRUE,
-  export_path = "exports/molecular_formula_assignments"
+  export_path = "exports/molecular_formula_assignments",
+  tidy_eval = targets::tar_option_get("tidy_eval"),
+  packages = targets::tar_option_get("packages"),
+  library = targets::tar_option_get("library"),
+  format = targets::tar_option_get("format"),
+  repository = targets::tar_option_get("repository"),
+  error = targets::tar_option_get("error"),
+  memory = targets::tar_option_get("memory"),
+  garbage_collection = targets::tar_option_get("garbage_collection"),
+  deployment = targets::tar_option_get("deployment"),
+  priority = targets::tar_option_get("priority"),
+  resources = targets::tar_option_get("resources"),
+  storage = targets::tar_option_get("storage"),
+  retrieval = targets::tar_option_get("retrieval"),
+  cue = targets::tar_option_get("cue")
 )
 }
 \arguments{
@@ -25,6 +39,147 @@ tar_mf_assignment(
 \item{summary}{Boolean. Include additional summary targets.}
 
 \item{export_path}{Destination path of export files. Set to \code{NULL} to skip exports.}
+
+\item{tidy_eval}{Logical, whether to enable tidy evaluation
+when interpreting \code{command} and \code{pattern}. If \code{TRUE}, you can use the
+"bang-bang" operator \verb{!!} to programmatically insert
+the values of global objects.}
+
+\item{packages}{Character vector of packages to load right before
+the target builds or the output data is reloaded for
+downstream targets. Use \code{tar_option_set()} to set packages
+globally for all subsequent targets you define.}
+
+\item{library}{Character vector of library paths to try
+when loading \code{packages}.}
+
+\item{format}{Optional storage format for the target's return value.
+With the exception of \code{format = "file"}, each target
+gets a file in \verb{_targets/objects}, and each format is a different
+way to save and load this file. See the "Storage formats" section
+for a detailed list of possible data storage formats.}
+
+\item{repository}{Character of length 1, remote repository for target
+storage. Choices:
+\itemize{
+\item \code{"local"}: file system of the local machine.
+\item \code{"aws"}: Amazon Web Services (AWS) S3 bucket. Can be configured
+with a non-AWS S3 bucket using the \code{endpoint} argument of
+\code{\link[targets:tar_resources_aws]{tar_resources_aws()}}, but versioning capabilities may be lost
+in doing so.
+See the cloud storage section of
+\url{https://books.ropensci.org/targets/data.html}
+for details for instructions.
+\item \code{"gcp"}: Google Cloud Platform storage bucket.
+See the cloud storage section of
+\url{https://books.ropensci.org/targets/data.html}
+for details for instructions.
+}
+
+Note: if \code{repository} is not \code{"local"} and \code{format} is \code{"file"}
+then the target should create a single output file.
+That output file is uploaded to the cloud and tracked for changes
+where it exists in the cloud. The local file is deleted after
+the target runs.}
+
+\item{error}{Character of length 1, what to do if the target
+stops and throws an error. Options:
+\itemize{
+\item \code{"stop"}: the whole pipeline stops and throws an error.
+\item \code{"continue"}: the whole pipeline keeps going.
+\item \code{"abridge"}: any currently running targets keep running,
+but no new targets launch after that.
+(Visit \url{https://books.ropensci.org/targets/debugging.html}
+to learn how to debug targets using saved workspaces.)
+\item \code{"null"}: The errored target continues and returns \code{NULL}.
+The data hash is deliberately wrong so the target is not
+up to date for the next run of the pipeline.
+}}
+
+\item{memory}{Character of length 1, memory strategy.
+If \code{"persistent"}, the target stays in memory
+until the end of the pipeline (unless \code{storage} is \code{"worker"},
+in which case \code{targets} unloads the value from memory
+right after storing it in order to avoid sending
+copious data over a network).
+If \code{"transient"}, the target gets unloaded
+after every new target completes.
+Either way, the target gets automatically loaded into memory
+whenever another target needs the value.
+For cloud-based dynamic files
+(e.g. \code{format = "file"} with \code{repository = "aws"}),
+this memory strategy applies to the
+temporary local copy of the file:
+\code{"persistent"} means it remains until the end of the pipeline
+and is then deleted,
+and \code{"transient"} means it gets deleted as soon as possible.
+The former conserves bandwidth,
+and the latter conserves local storage.}
+
+\item{garbage_collection}{Logical, whether to run \code{base::gc()}
+just before the target runs.}
+
+\item{deployment}{Character of length 1, only relevant to
+\code{\link[targets:tar_make_clustermq]{tar_make_clustermq()}} and \code{\link[targets:tar_make_future]{tar_make_future()}}. If \code{"worker"},
+the target builds on a parallel worker. If \code{"main"},
+the target builds on the host machine / process managing the pipeline.}
+
+\item{priority}{Numeric of length 1 between 0 and 1. Controls which
+targets get deployed first when multiple competing targets are ready
+simultaneously. Targets with priorities closer to 1 get built earlier
+(and polled earlier in \code{\link[targets:tar_make_future]{tar_make_future()}}).}
+
+\item{resources}{Object returned by \code{tar_resources()}
+with optional settings for high-performance computing
+functionality, alternative data storage formats,
+and other optional capabilities of \code{targets}.
+See \code{tar_resources()} for details.}
+
+\item{storage}{Character of length 1, only relevant to
+\code{\link[targets:tar_make_clustermq]{tar_make_clustermq()}} and \code{\link[targets:tar_make_future]{tar_make_future()}}.
+Must be one of the following values:
+\itemize{
+\item \code{"main"}: the target's return value is sent back to the
+host machine and saved/uploaded locally.
+\item \code{"worker"}: the worker saves/uploads the value.
+\item \code{"none"}: almost never recommended. It is only for
+niche situations, e.g. the data needs to be loaded
+explicitly from another language. If you do use it,
+then the return value of the target is totally ignored
+when the target ends, but
+each downstream target still attempts to load the data file
+(except when \code{retrieval = "none"}).
+
+If you select \code{storage = "none"}, then
+the return value of the target's command is ignored,
+and the data is not saved automatically.
+As with dynamic files (\code{format = "file"}) it is the
+responsibility of the user to write to
+the data store from inside the target.
+
+The distinguishing feature of \code{storage = "none"}
+(as opposed to \code{format = "file"})
+is that in the general case,
+downstream targets will automatically try to load the data
+from the data store as a dependency. As a corollary, \code{storage = "none"}
+is completely unnecessary if \code{format} is \code{"file"}.
+}}
+
+\item{retrieval}{Character of length 1, only relevant to
+\code{\link[targets:tar_make_clustermq]{tar_make_clustermq()}} and \code{\link[targets:tar_make_future]{tar_make_future()}}.
+Must be one of the following values:
+\itemize{
+\item \code{"main"}: the target's dependencies are loaded on the host machine
+and sent to the worker before the target builds.
+\item \code{"worker"}: the worker loads the targets dependencies.
+\item \code{"none"}: the dependencies are not loaded at all.
+This choice is almost never recommended. It is only for
+niche situations, e.g. the data needs to be loaded
+explicitly from another language.
+}}
+
+\item{cue}{An optional object from \code{tar_cue()} to customize the
+rules that decide whether the target is up to date.}
 }
 \value{
 A list of target objects for molecular formula assignment.
