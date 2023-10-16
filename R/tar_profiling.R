@@ -86,7 +86,7 @@ tar_profiling <- function(name,
                           storage = targets::tar_option_get("storage"),
                           retrieval = targets::tar_option_get("retrieval"),
                           cue = targets::tar_option_get("cue")
-){
+                          ){
     
     if (!is.null(parameters)) {
         if (!inherits(parameters,'ProfileParameters')){

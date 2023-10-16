@@ -12,6 +12,7 @@
 #' Specifying argument `spectral_processed` as `NULL` enables the use additional target factories outputing spectrally processed data. See the examples below.
 #' @return 
 #' A list of target objects for processing `mzML` data files using spectral binning.
+#' @inheritParams targets::tar_target
 #' @examples 
 #' \dontrun{
 #' ## Perform pre-treatment by specifying the spectrally processed data directly
@@ -69,7 +70,22 @@ tar_pre_treatment <- function(name,
                                         'LDA',
                                         'unsupervised_RF',
                                         'supervised_RF'),
-                              export_path = "exports/pre-treated"){
+                              export_path = "exports/pre-treated",
+                              tidy_eval = targets::tar_option_get("tidy_eval"),
+                              packages = targets::tar_option_get("packages"),
+                              library = targets::tar_option_get("library"),
+                              format = targets::tar_option_get("format"),
+                              repository = targets::tar_option_get("repository"),
+                              error = targets::tar_option_get("error"),
+                              memory = targets::tar_option_get("memory"),
+                              garbage_collection = targets::tar_option_get("garbage_collection"),
+                              deployment = targets::tar_option_get("deployment"),
+                              priority = targets::tar_option_get("priority"),
+                              resources = targets::tar_option_get("resources"),
+                              storage = targets::tar_option_get("storage"),
+                              retrieval = targets::tar_option_get("retrieval"),
+                              cue = targets::tar_option_get("cue")
+                              ){
     
     if (length(plots) > 0){
         plots <- match.arg(plots,
@@ -81,7 +97,6 @@ tar_pre_treatment <- function(name,
     }
     
     envir <- tar_option_get("envir")
-    tidy_eval <- tar_option_get("tidy_eval")
     
     name <- tar_deparse_language(enexpr(name))
     
@@ -119,7 +134,20 @@ tar_pre_treatment <- function(name,
     if (!is.null(command_parameters)){
         target_parameters <- tar_target_raw(
             parameters_name,
-            command_parameters
+            command_parameters,
+            packages = packages,
+            library = library,
+            format = format,
+            repository = repository,
+            error = error,
+            memory = memory,
+            garbage_collection = garbage_collection,
+            deployment = deployment,
+            priority = priority,
+            resources = resources,
+            storage = storage,
+            retrieval = retrieval,
+            cue = cue
         )
         
         pre_treatment_list <- c(
@@ -140,7 +168,20 @@ tar_pre_treatment <- function(name,
     
     target_results <- tar_target_raw(
         results_name,
-        command_results
+        command_results,
+        packages = packages,
+        library = library,
+        format = format,
+        repository = repository,
+        error = error,
+        memory = memory,
+        garbage_collection = garbage_collection,
+        deployment = deployment,
+        priority = priority,
+        resources = resources,
+        storage = storage,
+        retrieval = retrieval,
+        cue = cue
     )
     
     pre_treatment_list <- c(pre_treatment_list,
