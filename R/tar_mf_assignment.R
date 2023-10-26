@@ -17,9 +17,9 @@
 #' targets::tar_dir({
 #'     targets::tar_script({
 #'         library(hrmtargets)
-#'         
+#'         library(assignments)
 #'         list(
-#'             tar_mf_assignment(assignments::feature_data)
+#'             tar_mf_assignment(feature_data)
 #'         )
 #'     })
 #'     targets::tar_make()
