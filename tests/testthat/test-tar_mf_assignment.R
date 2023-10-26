@@ -15,3 +15,27 @@ test_that("tar_mf_assignment() works if the `feature_data` argument is specified
     
     expect_identical(class(targets),'list')
 })
+
+test_that(
+    "tar_mf_assignment() works with seperate targets",
+    {
+        targets <- tar_mf_assignment(
+            test,
+            separate = TRUE
+        )
+        
+        expect_identical(class(targets),'list')
+    }
+)
+
+test_that(
+    "tar_mf_assignment() works if the `feature_data` argument is specified directly with separate targets", 
+    {
+        targets <- tar_mf_assignment(
+            example,
+            feature_data = assignments::feature_data,
+            separate = TRUE
+        )
+        
+        expect_identical(class(targets),'list')
+    })

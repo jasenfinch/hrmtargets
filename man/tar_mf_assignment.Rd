@@ -8,6 +8,7 @@ tar_mf_assignment(
   name,
   feature_data = NULL,
   parameters = assignments::assignmentParameters("FIE"),
+  separate = FALSE,
   verbose = TRUE,
   summary = TRUE,
   export_path = "exports/molecular_formula_assignments",
@@ -33,6 +34,8 @@ tar_mf_assignment(
 \item{feature_data}{A tibble containing a feature intensity matrix for which to assign molecular formulas. If \code{NULL}, target input will be expected from an existing target. See details.}
 
 \item{parameters}{S4 object of class \code{AssignmentParameters}.}
+
+\item{separate}{Separate the molecular formula assignment steps into individual targets. This can be useful for memory intensive data sets where resources may be limited and ensures that memory can be effectively cleared between steps.}
 
 \item{verbose}{Show assignment console output.}
 
@@ -197,8 +200,12 @@ targets::tar_dir({
     targets::tar_script({
         library(hrmtargets)
         library(assignments)
+
         list(
-            tar_mf_assignment(feature_data)
+            tar_mf_assignment(
+                example,
+                feature_data
+            )
         )
     })
     targets::tar_make()
